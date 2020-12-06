@@ -1,4 +1,4 @@
-print("*** ca65 Notepad++ Lua script v1.1.0")
+print("*** ca65 Notepad++ Lua script v1.1.1")
 print("*** Read manual at https://iromhacker.ru/nes/en/bzk6502/1/index.html")
 print("*** Forum topic at https://www.romhacking.net/forum/index.php?topic=31875.0")
 
@@ -472,6 +472,8 @@ npp.AddShortcut(".byte x2 -> [conversion] [label] [counter] [offset]", "", funct
                     npp.WriteError("CPU address $"..addr.." was not found in current file")
                 else
                     ReplaceText(line, text)
+                    --повторный поиск позиции, так как она будет сдвинута после замены
+                    f_pos = editor:findtext(":"..addr..":")
                     local f_line = editor:LineFromPosition(f_pos)
                     local f_pos_start = editor:PositionFromLine(f_line)
                     editor:InsertText(f_pos_start, search..":\n")
