@@ -28,6 +28,7 @@ while true do
     
     bytes_counter = 1
     incomplete_instr_err = false
+    cpu_addr_overflow = false
     
     while true do
         if bytes_counter > max_address then break end

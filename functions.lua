@@ -209,7 +209,7 @@ function ConvertCounterToAddresses()
     local bank_num = (ASM_config_table[asm_files_counter * 5 + 2] + bytes_counter - 1 - 0x10) / 0x4000
     bank_num = bank_num - bank_num % 1
     bank_num = string.upper(string.format("%02x", tostring(bank_num)))
-    local nes_addr = string.upper(string.format("%04x", tonumber(tostring(ASM_config_table[asm_files_counter * 5 + 3] + bytes_counter - 1)), 16))
+    local nes_addr = string.upper(string.format("%04x", tonumber(tostring((ASM_config_table[asm_files_counter * 5 + 3] + bytes_counter - 1) & 0xFFFF)), 16))
     str = str.."0x"..rom_addr.." "..bank_num..":"..nes_addr..": "
     return nes_addr, rom_addr, str
 end
@@ -229,6 +229,15 @@ function Get3BytesAndInfo()
         incomplete_instr_err = true
         errors_list[errors_counter + 1] = "Incomplete instruction at 0x"..rom_address.." in "..ASM_config_table[asm_files_counter * 5 + 1].." file!"
         errors_counter = errors_counter + 1
+    end
+    
+    if cpu_addr_overflow == false then
+        local addr = tonumber(tostring((ASM_config_table[asm_files_counter * 5 + 3] + bytes_counter - 1)))
+        if addr > 0xFFFF then
+            cpu_addr_overflow = true
+            errors_list[errors_counter + 1] = "NES Memory overflow at 0x"..rom_address.." in "..ASM_config_table[asm_files_counter * 5 + 1].." file!"
+            errors_counter = errors_counter + 1
+        end
     end
     
     if flag_code == false or incomplete_instr_err == true then str = str..b1.."        "
@@ -326,6 +335,8 @@ function GetInstruction()
     local str = opcodes_table[index * 4 + 3]
     if     addr_mode == "unknown" then
         --nothing
+        errors_list[errors_counter + 1] = "UNDEFINED instruction at 0x"..rom_address.." in "..ASM_config_table[asm_files_counter * 5 + 1].." file!"
+        errors_counter = errors_counter + 1
     elseif addr_mode == "implied" then
         --nothing
     elseif addr_mode == "accumulator" then
@@ -547,7 +558,7 @@ function PrintErrors()
     print("\n\n\nErrors occured = "..errors_counter)
     if errors_counter ~= 0 then
         for i = 1, errors_counter do
-            print("    "..errors_list[i])
+            print("> "..errors_list[i])
         end
     end
 end
