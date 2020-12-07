@@ -139,10 +139,10 @@ function ReadBytesForCurrentBank()
     local size = ASM_config_table[asm_files_counter * 5 + 2] + ASM_config_table[asm_files_counter * 5 + 4]
     local j = 1
     for i = counter, size do
-        local byte = string.upper(string.format("%02x", string.byte(ROM_binary[i])))
-        tbl_rom[j] = byte
-        byte = string.upper(string.format("%02x", string.byte(CDL_binary[i - 0x10])))
-        tbl_cdl[j] = byte
+        local rom_byte = string.upper(string.format("%02x", string.byte(ROM_binary[i])))
+        tbl_rom[j] = rom_byte
+        local cdl_byte = string.upper(string.format("%02x", string.byte(CDL_binary[i - 0x10])))
+        tbl_cdl[j] = cdl_byte
         j = j + 1
     end
     return tbl_rom, tbl_cdl
