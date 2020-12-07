@@ -48,11 +48,13 @@ function DumpHeader(bin)
         io.close(file)
         file = io.open(OUTPUT_folder..HEADER_file[1], "ab")
         io.output(file)
-        counter = HEADER_file[2] + 1
-        size = HEADER_file[2] + HEADER_file[3]
+        
+        local counter = HEADER_file[2] + 1
+        local size = HEADER_file[2] + HEADER_file[3]
         for i = counter, size do
             io.write(bin[i])
         end
+        
         io.flush(file)
         io.close(file)
     end
@@ -71,11 +73,13 @@ function DumpChr(bin)
         io.close(file)
         file = io.open(OUTPUT_folder..CHR_file[1], "ab")
         io.output(file)
-        counter = CHR_file[2] + 1
-        size = CHR_file[2] + CHR_file[3]
+        
+        local counter = CHR_file[2] + 1
+        local size = CHR_file[2] + CHR_file[3]
         for i = counter, size do
             io.write(bin[i])
         end
+        
         io.flush(file)
         io.close(file)
     end
