@@ -39,6 +39,9 @@ RAM_usage_output = {
 --file name, flag (set to false if you don't want the script to produce a debug file)
 DEBUG_file = { "debug.txt", true }
 
+--if true, prints ";" near a byte even if it doesn't have a match from a table file
+FORCE_byte_comments = true
+
 --add/delete configuration lines depending on your game and write correct settings for each bank
     --1 <ASM file name>, name can be reused, assembly text will be appended to the file, not overwritten
     --2 <base ROM File address>

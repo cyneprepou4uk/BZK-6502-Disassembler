@@ -260,6 +260,8 @@ function GetByte()
     local i = tonumber(opcode, 16) + 1
     if TBL_encoding[i] ~= "" then
         str = str.."   ; <"..TBL_encoding[i]..">"
+    elseif FORCE_byte_comments == true then
+        str = str.."   ; "
     end
     return str
 end
