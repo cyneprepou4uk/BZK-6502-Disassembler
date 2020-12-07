@@ -298,7 +298,7 @@ function GetInstruction()
         IncreaseRamAddressingModeUsage(i)
     end
     
-    local function Calculate16BitAbsAddress()
+    local function Calculate16BitAbsoluteAddress()
         local a = tonumber(operand_2, 16) * 0x100 + tonumber(operand_1, 16)
         local s = ""
         if opcode == "20" or opcode == "4C" then
@@ -353,13 +353,13 @@ function GetInstruction()
         str = str.." ram_00"..operand_1..",Y"
         IncreaseRamUsageZeroPage()
     elseif addr_mode == "$absolute" then
-        str = str..Calculate16BitAbsAddress()
+        str = str..Calculate16BitAbsoluteAddress()
         IncreaseRamUsageAbsolute()
     elseif addr_mode == "$absolute,X" then
-        str = str..Calculate16BitAbsAddress()..",X"
+        str = str..Calculate16BitAbsoluteAddress()..",X"
         IncreaseRamUsageAbsolute()
     elseif addr_mode == "$absolute,Y" then
-        str = str..Calculate16BitAbsAddress()..",Y"
+        str = str..Calculate16BitAbsoluteAddress()..",Y"
         IncreaseRamUsageAbsolute()
     elseif addr_mode == "($indirect)" then
         str = str..Calculate16BitIndirectAddress()
