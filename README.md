@@ -1,5 +1,5 @@
 # BZK 6502 Disassembler
-Create a disassembly of your game using a CDL file
+Create a quick disassembly of your game for ca65 assembler using a CDL file and Notepad++ scripts
 
 Read manual at https://iromhacker.ru/nes/en/bzk6502/1/index.html
 
