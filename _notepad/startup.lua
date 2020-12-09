@@ -141,11 +141,16 @@ npp.AddShortcut("Set counter by selecting a 8-bit value", "", function()
     if COUNTER_mode == nil then
         npp.WriteError("Counter is currently disabled! First you need to set a counter mode")
     else
-        local val = editor:GetSelText()
+        local val, size = editor:GetSelText()
         if     COUNTER_mode == "HEX" then
             val = tonumber(val, 16)
             if val == nil then
-                npp.WriteError("Select a proper hexadecimal value!")
+                if size == 0 then
+                    COUNTER_value = 0
+                    print("[config] No text was selected. HEX counter was set to a default value <"..string.upper(string.format("%02x", COUNTER_value))..">")
+                else
+                    npp.WriteError("Select a proper hexadecimal value!")
+                end
             else
                 COUNTER_value = val & 0xFF
                 print("[config] HEX counter was set to <"..string.upper(string.format("%02x", COUNTER_value))..">")
@@ -153,7 +158,12 @@ npp.AddShortcut("Set counter by selecting a 8-bit value", "", function()
         elseif COUNTER_mode == "DEC" then
             val = tonumber(val)
             if val == nil then
-                npp.WriteError("Select a proper decimal value!")
+                if size == 0 then
+                    COUNTER_value = 0
+                    print("[config] No text was selected. DEC counter was set to a default value <"..string.upper(string.format("%d", COUNTER_value))..">")
+                else
+                    npp.WriteError("Select a proper decimal value!")
+                end
             else
                 COUNTER_value = val & 0xFF
                 print("[config] DEC counter was set to <"..string.upper(string.format("%d", COUNTER_value))..">")
