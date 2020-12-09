@@ -466,6 +466,7 @@ npp.AddShortcut(".byte x2 -> [conversion] [label] [counter] [offset]", "", funct
                 local f_line = editor:LineFromPosition(f_pos)
                 print("Line "..(line + 1)..": converting <.byte $"..byte_1.."> and <.byte $"..byte_2.."> to <"..CONVERSION_mode.." $"..addr..text_offset..">. "..
                       "Label <"..search.."> already exists at line "..(f_line + 1))
+                IncreaseCounter()
             else
                 f_pos = editor:findtext(":"..addr..":")
                 if f_pos == nil then
