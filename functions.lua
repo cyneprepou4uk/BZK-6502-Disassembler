@@ -392,7 +392,7 @@ function CreateRamInclude()
         for i = counter + 1, size + 1 do
             local str = "ram_"
             local convert = "%04x"      --для адреса после =
-            if i < 0x0100 then convert = "%02x" end
+            if i < 0x0100 + 1 then convert = "%02x" end
             local addr = string.upper(string.format("%04x", i - 1))
             str = str..addr.."                        = $"..string.upper(string.format(convert, i - 1)).." ; "
             
