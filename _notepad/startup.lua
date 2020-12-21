@@ -756,7 +756,11 @@ function LabelInstrictions(message, instruction, label, jmp_label, jsr_label, ra
     
     print("Instructions renamed   = "..instructions_renamed)
     print("New labels created     = "..labels_created)
-    print("Errors occured         = "..errors_counter)
+    if errors_counter == 0 then
+        print("Errors occured         = "..errors_counter)
+    else
+        npp.WriteError("Errors occured         = "..errors_counter)
+    end
     print(string.format("Script finished in "..string.format("%.3f", os.clock() - time).." seconds"))
 end
 
