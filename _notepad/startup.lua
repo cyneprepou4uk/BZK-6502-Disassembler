@@ -695,7 +695,7 @@ end)
 
 function LabelInstructions(message, instruction, label, jmp_label, jsr_label, range, addressing)
     local function GetSearchPosition(str)
-        pos = editor:SearchNext(SCFIND_REGEXP, str)
+        local pos = editor:SearchNext(SCFIND_REGEXP, str)
         return pos
     end
 
@@ -716,7 +716,7 @@ function LabelInstructions(message, instruction, label, jmp_label, jsr_label, ra
     finish = false
 
     while not finish do
-        pos = GetSearchPosition(search)
+        local pos = GetSearchPosition(search)
         if pos == -1 then
             finish = true
         else
