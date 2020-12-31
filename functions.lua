@@ -130,11 +130,22 @@ function PrepareOutputFile()
           "-$"..string.upper(string.format("%04x", ASM_config_table[asm_files_counter * 5 + 3] + ASM_config_table[asm_files_counter * 5 + 4] - 1)).."...")
     
     local i = asm_files_counter * 5
-    local file, err = io.open(OUTPUT_folder..ASM_config_table[i + 1], "a")
+    local file, err = io.open(OUTPUT_folder..ASM_config_table[i + 1], "r")
     if err ~= nil then PrintFileError(err) end
+    local empty_file = true
+    local line = file:read("*line")     --проверка на пустой файл
+    if line ~= nil then
+        empty_file = false
+        print(empty_file)
+    end
+    io.close(file)
+    
+    local file = io.open(OUTPUT_folder..ASM_config_table[i + 1], "a")
     io.output(file)
     io.write(".segment \"???\"\n")
-    io.write(".include \""..RAM_file.."\"\n")
+    if empty_file == true then
+        io.write(".include \""..RAM_file.."\"\n")
+    end
     io.write("; 0x"..string.upper(string.format("%06x", ASM_config_table[i + 2])))
     io.write("-0x"..string.upper(string.format("%06x", (ASM_config_table[i + 2] + ASM_config_table[i + 4] - 1))).."\n\n")
     io.flush(file)
