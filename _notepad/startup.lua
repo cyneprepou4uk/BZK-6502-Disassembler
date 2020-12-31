@@ -747,7 +747,7 @@ npp.AddShortcut("Clear console", "", function()
     npp.ClearConsole()
 end)
 
-npp.AddShortcut("Paste counter and increase it", "", function()
+npp.AddShortcut("Paste [counter] and increase it", "", function()
     if COUNTER_mode == nil then
         npp.WriteError("Counter is currently disabled! First you need to set a counter mode")
     else
