@@ -129,7 +129,7 @@ end)
 COUNTER_value = 0
 COUNTER_mode = nil
 
-npp.AddShortcut("Toggle counter mode to Disable | HEX | DEC", "", function()
+npp.AddShortcut("Toggle [counter] mode to Disable | HEX | DEC", "", function()
     if     COUNTER_mode == nil then
         COUNTER_mode = "HEX"
         print("[config] Counter was set to <"..COUNTER_mode.."> mode, value = <"..string.upper(string.format("%02x", COUNTER_value))..">")
@@ -144,7 +144,7 @@ end)
 
 
 
-npp.AddShortcut("Set counter by selecting a 8-bit value", "", function()
+npp.AddShortcut("Set [counter] by selecting a 8-bit value", "", function()
     if COUNTER_mode == nil then
         npp.WriteError("Counter is currently disabled! First you need to set a counter mode")
     else
@@ -187,7 +187,7 @@ CONVERSION_mode = ".word"
 OFFSET_value = 0
 LABEL_mode = "$"
 
-npp.AddShortcut("Toggle bytes conversion mode to .word | .dbyt", "", function()
+npp.AddShortcut("Toggle [conversion] to .word | .dbyt", "", function()
     if CONVERSION_mode == ".word" then
         CONVERSION_mode = ".dbyt"
         print("[config] Bytes conversion mode was set to <"..CONVERSION_mode..">")
@@ -197,20 +197,26 @@ npp.AddShortcut("Toggle bytes conversion mode to .word | .dbyt", "", function()
     end
 end)
 
-npp.AddShortcut("Toggle labeling mode to $ | ofs_ | off_", "", function()
-    if     LABEL_mode == "$" then
-        LABEL_mode = "ofs_"
-        print("[config] Labeling mode value was set to <"..LABEL_mode..">")
-    elseif LABEL_mode == "ofs_" then
-        LABEL_mode = "off_"
-        print("[config] Labeling mode value was set to <"..LABEL_mode..">")
-    elseif LABEL_mode == "off_" then
-        LABEL_mode = "$"
-        print("[config] Labeling mode value was set to <"..LABEL_mode.."> (default)")
+npp.AddShortcut("Toggle [label] to $ | ofs_ | off_ | set custom name", "", function()
+    local text, size = editor:GetSelText()
+    if size == 0 or string.find(text, "\n") ~= nil then
+        if     LABEL_mode == "$" then
+            LABEL_mode = "ofs_"
+            print("[config] Label name was set to <"..LABEL_mode..">")
+        elseif LABEL_mode == "ofs_" then
+            LABEL_mode = "off_"
+            print("[config] Label name was set to <"..LABEL_mode..">")
+        else
+            LABEL_mode = "$"
+            print("[config] Label name was set to <"..LABEL_mode.."> (default)")
+        end
+    else
+        LABEL_mode = text
+        print("[config] Label name was set to <"..LABEL_mode.."> (custom)")
     end
 end)
 
-npp.AddShortcut("Toggle offset value to 0 | 1", "", function()
+npp.AddShortcut("Toggle [offset] to 0 | 1", "", function()
     if OFFSET_value == 0 then
         OFFSET_value = 1
         print("[config] Offset value was set to <"..OFFSET_value..">")
@@ -226,7 +232,7 @@ end)
 
 LABEL_range = "(8|9)"
 
-npp.AddShortcut("Toggle labeling range $8000 | $A000 | $C000 | $E000 | $6000", "", function()
+npp.AddShortcut("Toggle [range] $8000 | $A000 | $C000 | $E000 | $6000", "", function()
     if     LABEL_range == "(6|7)" then
         LABEL_range = "(8|9)"
         print("[config] Labeling range was set to <$8000-$9FFF> (default)")
