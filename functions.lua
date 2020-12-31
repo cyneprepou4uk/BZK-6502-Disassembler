@@ -11,11 +11,14 @@ function ReadAllBytesFrom(bin)
     print("Reading bytes from <"..bin.."> file...")
     local file, err = io.open(INPUT_folder..bin, "rb")
     if err ~= nil then PrintFileError(err) end
+    
     local result = {}
     local bytes = file:read("*all")
     for i = 1, string.len(bytes) do
         result[i] = string.sub(bytes, i, i)
     end
+    
+    io.close(file)
     return result
 end
 
