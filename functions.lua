@@ -80,7 +80,12 @@ function DumpChr(bin)
         local counter = CHR_file[2] + 1
         local size = CHR_file[2] + CHR_file[3]
         for i = counter, size do
-            io.write(bin[i])
+            if bin[i] == nil then
+                print("\n> WARNING: incorrect <CHR_file> size argument!\n")
+                break
+            else
+                io.write(bin[i])
+            end
         end
         
         io.flush(file)
