@@ -267,7 +267,7 @@ npp.AddShortcut(".byte -> instruction", "F1", function()
                 s = " $"..operand_2..operand_1
             end
         elseif a < 0x0800 then
-            if a < 0x0100 then
+            if a < 0x0100 and opcode ~= "B9" and opcode ~= "99" then    --LDA,Y и STA,Y
                 s = " a: ram_"..operand_2..operand_1
             else
                 s = " ram_"..operand_2..operand_1
@@ -295,7 +295,7 @@ npp.AddShortcut(".byte -> instruction", "F1", function()
     
     line = BasicInfo()
     --найти совпадение
-    local opcode, f_pos = GetByteFromLine(line)
+    opcode, f_pos = GetByteFromLine(line)
     if f_pos == nil then
         npp.WriteError("Line "..(line + 1)..": ".."unable to find any <.byte $> string to read an opcode")
     else

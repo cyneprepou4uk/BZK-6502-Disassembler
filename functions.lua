@@ -314,7 +314,7 @@ function GetInstruction()
                 s = " $"..operand_2..operand_1
             end
         elseif a < 0x0800 then
-            if a < 0x0100 then
+            if a < 0x0100 and opcode ~= "B9" and opcode ~= "99" then    --LDA,Y и STA,Y
                 s = " a: ram_"..operand_2..operand_1
             else
                 s = " ram_"..operand_2..operand_1
