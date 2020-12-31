@@ -662,7 +662,7 @@ end)
 
 
 npp.AddShortcut("Label all branches", "", function()
-    message = "\n*** Labeling branches ***\n"
+    message = "\n*** Labeling branches ***"
     instruction = "(BEQ|BCC|BNE|BMI|BPL|BCS|BVS|BVC)"
     label = "bra_"
     range = "(6|7|8|9|A|B|C|D|E|F)"
@@ -672,7 +672,7 @@ end)
 
 
 npp.AddShortcut("Label tables [range]", "", function()
-    message = "\n*** Labeling tables ***\n"
+    message = "\n*** Labeling tables ***"
     instruction = "(LDA|LDX|LDY|STA|INC|DEC|CMP|ADC|SBC|ORA|AND|EOR|ASL|ROL|LSR|ROR)"
     label = "tbl_"
     range = LABEL_range
@@ -683,7 +683,7 @@ end)
 
 
 npp.AddShortcut("Label JMP/JSR [range]", "", function()
-    message = "\n*** Labeling JMP/JSR ***\n"
+    message = "\n*** Labeling JMP/JSR ***"
     instruction = "(JMP|JSR)"
     jmp_label = "loc_"
     jsr_label = "sub_"
@@ -776,7 +776,7 @@ function LabelInstructions(message, instruction, label, jmp_label, jsr_label, ra
     else
         npp.WriteError("Errors occured         = "..errors_counter)
     end
-    print(string.format("Script finished in "..string.format("%.3f", os.clock() - time).." seconds"))
+    print(string.format("Script finished in "..string.format("%.3f", os.clock() - time).." seconds\n"))
 end
 
 
