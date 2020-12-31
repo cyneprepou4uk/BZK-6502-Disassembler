@@ -104,6 +104,13 @@ function IncreaseCounter()              --увеличить счетчик
     end
 end
 
+function CheckForRtsInstruction(pos)                --проверить на наличие RTS в строке
+    local line = editor:LineFromPosition(pos)       --узнать номер линии
+    local txt = editor:GetLine(line)                --скопировать весь текст из линии
+    local rts_found = string.find(txt, "60        RTS")       --возвратит число либо nil
+    return rts_found
+end
+
 
 
 
@@ -470,6 +477,11 @@ npp.AddShortcut(".byte x2 -> [conversion] [label] [counter] [offset]", "", funct
             print("Line "..(line + 1)..": converting <.byte $"..byte_1.."> and <.byte $"..byte_2.."> to <"..CONVERSION_mode.." $"..addr..text_offset..">")
             ReplaceText(line, text)
         else
+            local f_pos = editor:findtext(":"..addr..":")       --найти адрес и проверить на наличие RTS
+            if f_pos ~= nil and CheckForRtsInstruction(f_pos) ~= nil then
+                search = search.."_RTS"
+                text = text.."_RTS"
+            end
             local f_pos = editor:findtext(search..":")
             if f_pos ~= nil then
                 ReplaceText(line, text)
@@ -726,6 +738,9 @@ function LabelInstrictions(message, instruction, label, jmp_label, jsr_label, ra
                 npp.WriteError(CopyText(pos - 28, pos - 20)..": can't find $"..operand.." address for creating a label")
                 errors_counter = errors_counter + 1
             else
+                if CheckForRtsInstruction(label_pos) ~= nil then
+                    label_str = label_str.."_RTS"
+                end
                 editor:SetSel(pos + 4, pos + 9)     --выделить операнд вместе с $
                 editor:ReplaceSel(label_str)        --поменять на лейбл + адрес
                 instructions_renamed = instructions_renamed + 1
