@@ -50,7 +50,7 @@ while true do
     end
     
     io.write("\n\n\n")
-    current_file:flush()
+    io.flush(current_file)
     io.close(current_file)
     asm_files_counter = asm_files_counter + 1
 end
