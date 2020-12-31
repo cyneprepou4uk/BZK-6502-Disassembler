@@ -136,7 +136,6 @@ function PrepareOutputFile()
     local line = file:read("*line")     --проверка на пустой файл
     if line ~= nil then
         empty_file = false
-        print(empty_file)
     end
     io.close(file)
     
