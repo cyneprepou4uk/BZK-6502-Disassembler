@@ -666,7 +666,7 @@ npp.AddShortcut("Label all branches", "", function()
     instruction = "(BEQ|BCC|BNE|BMI|BPL|BCS|BVS|BVC)"
     label = "bra_"
     range = "(6|7|8|9|A|B|C|D|E|F)"
-    LabelInstrictions(message, instruction, label, _, _, range, _)
+    LabelInstructions(message, instruction, label, _, _, range, _)
 end)
 
 
@@ -677,7 +677,7 @@ npp.AddShortcut("Label tables [range]", "", function()
     label = "tbl_"
     range = LABEL_range
     addressing = "(,X|,Y)"
-    LabelInstrictions(message, instruction, label, _, _, range, addressing)
+    LabelInstructions(message, instruction, label, _, _, range, addressing)
 end)
 
 
@@ -688,12 +688,12 @@ npp.AddShortcut("Label JMP/JSR [range]", "", function()
     jmp_label = "loc_"
     jsr_label = "sub_"
     range = LABEL_range
-    LabelInstrictions(message, instruction, _, jmp_label, jsr_label, range, _)
+    LabelInstructions(message, instruction, _, jmp_label, jsr_label, range, _)
 end)
 
 
 
-function LabelInstrictions(message, instruction, label, jmp_label, jsr_label, range, addressing)
+function LabelInstructions(message, instruction, label, jmp_label, jsr_label, range, addressing)
     local function GetSearchPosition(str)
         pos = editor:SearchNext(SCFIND_REGEXP, str)
         return pos
