@@ -525,64 +525,6 @@ end)
 
 
 
-npp.AddShortcut(".byte -> [counter] .byte", "", function()
-    editor:BeginUndoAction()
-    
-    if COUNTER_mode == nil then
-        npp.WriteError("Counter is currently disabled! First you need to set a counter mode")
-    elseif COUNTER_value < 2 then
-        npp.WriteError("Current counter value is "..COUNTER_value..", set a higher value!")
-    else
-        local sel_pos_start, sel_pos_end = SelectLinesCompletely()
-        local line_min, _, line_max = BasicInfo()
-        if (line_max - line_min + 1) % COUNTER_value ~= 0 then
-            npp.WriteError("You have selected "..(line_max - line_min + 1).." line(s). "..
-                           "Select an amount of lines that can be divided by "..COUNTER_value.."!")
-        else
-            local bytes = {}
-            local err = false
-            for i = 1, line_max - line_min + 1 do
-                local search_line = line_min + i - 1
-                local byte, f_pos = GetByteFromLine(search_line)
-                if f_pos ~= nil then
-                    bytes[i] = byte
-                else
-                    err = true
-                    npp.WriteError("Line "..(search_line + 1)..": ".."unable to find any <.byte $> string!")
-                    break
-                end
-            end
-                
-            if err == false then
-                editor:DeleteRange(sel_pos_start, sel_pos_end - sel_pos_start)
-                print("Converting "..(line_max - line_min + 1)..
-                      " <.byte $xx> lines into "..string.format("%d", (line_max - line_min + 1) / COUNTER_value)..
-                      " <.byte $xx> lines with "..COUNTER_value.." bytes each")
-                local b_counter = 0
-                local str = ""
-                for i = 1, line_max - line_min + 1 do
-                    if b_counter == 0 then str = "    .byte " end
-                    str = str.."$"..bytes[i]
-                    b_counter = b_counter + 1
-                    if b_counter < COUNTER_value then
-                        str = str..", "
-                    else
-                        str = str.."\n"
-                        editor:AddText(str)
-                        b_counter = 0
-                    end
-                end
-            end
-        end
-    end
-    
-    editor:EndUndoAction()
-end)
-
-
-
-
-
 npp.AddShortcut(".byte $ -> .byte %", "", function()
     editor:BeginUndoAction()
     
