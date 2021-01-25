@@ -277,7 +277,15 @@ npp.AddShortcut(".byte -> instruction", "F1", function()
                 s = " $"..operand_2..operand_1
             end
         elseif a < 0x0800 then
-            if a < 0x0100 and opcode ~= "B9" and opcode ~= "99" then    --LDA,Y и STA,Y
+            if a < 0x0100 and opcode ~= "19" --ORA,Y
+                          and opcode ~= "39" --AND,Y
+                          and opcode ~= "59" --EOR,Y
+                          and opcode ~= "79" --ADC,Y
+                          and opcode ~= "99" --STA,Y
+                          and opcode ~= "B9" --LDA,Y
+                          and opcode ~= "D9" --CMP,Y
+                          and opcode ~= "F9" --SBC,Y
+                          then
                 s = " a: ram_"..operand_2..operand_1
             else
                 s = " ram_"..operand_2..operand_1
