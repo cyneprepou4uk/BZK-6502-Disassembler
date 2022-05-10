@@ -1,4 +1,4 @@
---[[ Read manual at https://iromhacker.ru/nes/en/bzk6502/1/index.html ]]--
+--[[ Read manual athttps://cyneprepou4uk.github.io/iromhacker/nes/en/bzk6502/1/index.html ]]--
 
 --Put ROM_file, CDL_file and table files inside INPUT_folder
 --OUTPUT_folder will store all files produced by the script
