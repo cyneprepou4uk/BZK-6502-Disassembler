@@ -1,5 +1,5 @@
 print("*** ca65 Notepad++ Lua script v1.3.1")
-print("*** Read manual at https://iromhacker.ru/nes/en/bzk6502/1/index.html")
+print("*** Read manual at https://cyneprepou4uk.github.io/iromhacker/nes/en/bzk6502/1/index.html")
 print("*** Forum topic at https://www.romhacking.net/forum/index.php?topic=31875.0")
 
 
